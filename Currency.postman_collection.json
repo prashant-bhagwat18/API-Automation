@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "c3c67410-a3b8-48e5-8b2d-00e55e8797ba",
+		"name": "Currency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29012204",
+		"_collection_link": "https://solar-space-865447.postman.co/workspace/T-New-Team-Workspace~3929c694-1cdc-4fbf-9c7f-ba914383aa8f/collection/29012204-c3c67410-a3b8-48e5-8b2d-00e55e8797ba?action=share&source=collection_link&creator=29012204"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//1. Verify the status code 200 sucessfull response\r",
+							"\r",
+							"     pm.test(\"Status code is 200\", function () {\r",
+							"     pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//2. Validate response contain 3 currencies\r",
+							"\r",
+							"    pm.test(\"Check if 3 BPI present- USD-GBP-EUR\", function(){     \r",
+							"    var jsonDATA = pm.response.json(); //parse response in json\r",
+							"\r",
+							"  // pm.expect(jsonDATA.bpi).to.have.property('USD');\r",
+							"    pm.expect(jsonDATA.bpi).to.have.all.keys('USD', 'GBP', 'EUR'); \r",
+							"\r",
+							"});\r",
+							"\r",
+							"//Validate GBP descpription is \"British Pound Sterling\"\r",
+							"\r",
+							"   pm.test(\"GBP equal to British Pound Sterling\", function (){     \r",
+							"   var jsonDATA = pm.response.json();\r",
+							"\r",
+							"   pm.expect(jsonDATA.bpi.GBP.description).to.eql('British Pound Sterling') \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "api.coindesk.com/v1/bpi/currentprice.json",
+					"host": [
+						"api",
+						"coindesk",
+						"com"
+					],
+					"path": [
+						"v1",
+						"bpi",
+						"currentprice.json"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
